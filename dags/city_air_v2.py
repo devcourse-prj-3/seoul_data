@@ -75,6 +75,7 @@ def etl(schema, table, api_key):
 
     # 임시 테이블 데이터 입력
     insert_sql = f"INSERT INTO t VALUES " + ",".join(ret)
+    print('##test###',insert_sql)
     logging.info(insert_sql)
     try:
         cur.execute(insert_sql)
@@ -85,13 +86,12 @@ def etl(schema, table, api_key):
 
     # 기존 테이블 대체
     alter_sql = f"""DELETE FROM {schema}.{table};
-        INSERT INTO {schema}.{table}
-        SELECT msr_date, msr_time, msradmcode, msrstename, maxindex, grade, pollutant, nitrogen, ozone, carbon, sulfurous, pm10, pm25, created_date FROM (
-            SELECT *, ROW_NUMBER() OVER (PARTITION BY msr_date, msrstename ORDER BY msr_time DESC) seq
-            FROM t
-        )
+    INSERT INTO {schema}.{table}
+    SELECT msr_date, msr_time, msradmcode, msrstename, maxindex, grade, pollutant, nitrogen, ozone, carbon, sulfurous, pm10, pm25 FROM (
+        SELECT *, ROW_NUMBER() OVER (PARTITION BY msr_date, msrstename ORDER BY msr_time DESC) seq
+        FROM t
+    )
     WHERE seq = 1;"""
-    
 
     logging.info(alter_sql)
     try:
@@ -121,7 +121,7 @@ def create_sql_values(dictionary):
 with DAG(
     dag_id = 'City_air_to_Redshift_v2',
     start_date = datetime(2024,1,9), 
-    schedule = '30 * * * *',  
+    schedule = '20 * * * *',  
     max_active_runs = 1,
     catchup = False,
     default_args = {
