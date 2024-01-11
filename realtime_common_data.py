@@ -80,7 +80,6 @@ def load_common_data_to_redshift(schema, table1):
         cur.execute("ROLLBACK;")
         raise
 
-
     with DAG(
         dag_id="common_population_data_to_Redshift",
         start_date=datetime(2024,1,9),
