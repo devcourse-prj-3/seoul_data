@@ -98,7 +98,7 @@ def etl(schema, table):
 with DAG(
         dag_id='Realtime_Population_to_Redshift_In',
         start_date=datetime(2024, 1, 10),  # 날짜가 미래인 경우 실행이 안됨
-        schedule='0 1 * * *',  # 적당히 조절
+        schedule='0 * * * *',  # 적당히 조절
         max_active_runs=1,
         catchup=True,
         default_args={

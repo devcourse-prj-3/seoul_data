@@ -110,7 +110,7 @@ def etl(schema, table):
 with DAG(
         dag_id='Realtime_Predict_Data_to_Redshift',
         start_date=datetime(2024, 1, 10),  # 날짜가 미래인 경우 실행이 안됨
-        schedule='30 1 * * *',  # 적당히 조절
+        schedule='30 * * * *',  # 적당히 조절
         max_active_runs=1,
         catchup=True,
         default_args={
