@@ -75,7 +75,6 @@ def etl(schema, table, api_key):
 
     # 임시 테이블 데이터 입력
     insert_sql = f"INSERT INTO t VALUES " + ",".join(ret)
-    print('##test###',insert_sql)
     logging.info(insert_sql)
     try:
         cur.execute(insert_sql)
