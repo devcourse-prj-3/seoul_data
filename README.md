@@ -7,6 +7,10 @@
 
 ### 데이터셋
 * 실시간 인구 데이터
+  * https://data.seoul.go.kr/dataVisual/seoul/guide.do
 * 문화생활 데이터
+   * https://data.seoul.go.kr/dataList/OA-15486/S/1/datasetView.do
 * 대기환경 데이터
+   * https://data.seoul.go.kr/dataList/OA-1200/S/1/datasetView.do
 * 기상청 단기예보
+  * https://www.data.go.kr/data/15084084/openapi.do#tab_layer_detail_function
