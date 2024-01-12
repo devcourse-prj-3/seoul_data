@@ -4,6 +4,7 @@ from airflow.decorators import task
 
 from datetime import datetime
 from datetime import timedelta
+import time
 
 import requests
 import logging
@@ -52,8 +53,7 @@ def _create_table(cur, schema, table, drop_first):
                         fcst_yn varchar(10),
                         created_date timestamp default CURRENT_TIMESTAMP,
                         PRIMARY KEY (area_name, conn_time)
-                    );
-                """)
+                    );""")
 
 
 @task
@@ -91,12 +91,14 @@ def etl(schema, table):
             cur.execute("COMMIT;")
         except Exception as e:
             cur.execute("ROLLBACK;")
+            logging.error(f"Error in ETL process: {str(e)}")
+            time.sleep(5)
             raise
         logging.info("load done")
 
 
 with DAG(
-        dag_id='Realtime_Population_to_Redshift_In',
+        dag_id='Realtime_Population_to_Redshift',
         start_date=datetime(2024, 1, 10),  # 날짜가 미래인 경우 실행이 안됨
         schedule='0 * * * *',  # 적당히 조절
         max_active_runs=1,
@@ -104,6 +106,7 @@ with DAG(
         default_args={
             'retries': 1,
             'retry_delay': timedelta(minutes=3),
+            'dagrun_timeout': timedelta(hours=1),
         }
 ) as dag:
-    etl("diddmstj15", "population_redshift_in")
+    etl("diddmstj15", "realtime_population")

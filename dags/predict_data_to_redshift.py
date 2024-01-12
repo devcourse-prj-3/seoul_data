@@ -4,6 +4,7 @@ from airflow.decorators import task
 
 from datetime import datetime
 from datetime import timedelta
+import time
 
 import requests
 import logging
@@ -51,8 +52,7 @@ def _create_table(cur, schema, table, drop_first):
         max_perdict_population integer,
         created_date timestamp default CURRENT_TIMESTAMP,
         PRIMARY KEY (area_name, conn_time)
-    );"""
-    )
+    );""")
 
 
 @task
@@ -101,9 +101,11 @@ def etl(schema, table):
             _create_table(cur, schema, table, True)
             cur.execute(f"INSERT INTO {schema}.{table} SELECT DISTINCT * FROM t;")
             cur.execute("COMMIT;")
+
         except Exception as e:
             cur.execute("ROLLBACK;")
-            raise
+            logging.error(f"Error in ETL process: {str(e)}")
+            time.sleep(5)
         logging.info("load done")
 
 
@@ -116,6 +118,7 @@ with DAG(
         default_args={
             'retries': 1,
             'retry_delay': timedelta(minutes=3),
+            'dagrun_timeout': timedelta(hours=1),
         }
 ) as dag:
-    etl("diddmstj15", "predict_redshift_in")
+    etl("diddmstj15", "predict_realtime_population")
