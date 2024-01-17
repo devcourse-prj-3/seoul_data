@@ -2,11 +2,11 @@
 # 서울시 문화행사를 위한 실시간 데이터 파이프라인
 
 ## 프로젝트 내용
- 서울시에서 제공하는 문화행사를 기반으로 각 위치 별 실시간 데이터를 조회 서비스
+ 서울시에서 제공하는 문화행사를 기반으로 각 위치 별 실시간 데이터 조회 파이프라인
 
 
 
-## 1. Configuration
+## 🖈 Configuration
 
 - OS: Ubuntu22.04
 - Docker : 24.0.4
@@ -19,14 +19,14 @@
     - [대기환경 데이터](https://data.seoul.go.kr/dataList/OA-1200/S/1/datasetView.do)
     - [기상청 단기예보](https://www.data.go.kr/data/15084084/openapi.do#tab_layer_detail_function)
 
-## 2. Architecture
+## 🖈 Architecture
 
 ![architecture](/images/architecture.png)
 
-## 3. Database
+## 🖈  Database
 
 <details>
-<summary>데이터 테이블 구조 넣어주기</summary>
+<summary>각 테이블 별 구조 </summary>
  <div>
   <ul>
     <li><p>01_population_redshift_in_v2</p>
@@ -48,7 +48,7 @@
 </details> 
     
 
-## 4. 실행방법
+## 🖈 실행방법
 
 *실행 전 `git`, `docker`, `docker-compose` 설치 필요*
 
@@ -88,6 +88,6 @@
     ```
     
 
-### 조회
+### 🖈 조회
 
 - sql/ 에서 원하는 query로 조회 가능
