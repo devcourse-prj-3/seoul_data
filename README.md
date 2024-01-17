@@ -21,7 +21,7 @@
 
 ## 2. Architecture
 
-![architecture](/images/architecture)
+![architecture](/images/architecture.png)
 
 ## 3. Database
 
