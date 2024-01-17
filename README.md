@@ -91,9 +91,3 @@
 ### 조회
 
 - sql/ 에서 원하는 query로 조회 가능
-
-- 참고
-    
-    https://github.com/yjjoooo/riot-airflow
-    
-    https://github.com/alchemine/realtime_trend_pipeline
