@@ -132,6 +132,8 @@ logs/
 Pipfile
 Pipfile.lock
 
+*:Zone.Identifier
+
 # Spyder project settings
 .spyderproject
 .spyproject
